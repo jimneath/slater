@@ -1,7 +1,8 @@
 require 'sidekiq/web'
 
 # settings
-redis_url = Redis.current.client.id
+redis = Redis.new(host: ActiveSupport::JSON.decode(`sudo cat /etc/chef/dna.json`)['db_host'])
+redis_url = redis.client.id
 
 # server
 Sidekiq.configure_server do |config|
